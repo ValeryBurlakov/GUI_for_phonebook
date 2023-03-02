@@ -1,0 +1,46 @@
+{
+  "phone_book": [
+    {
+      "id": 1,
+      "name": "Валерий",
+      "surname": "Бурлаков",
+      "phone": "89117827899",
+      "E-mail": "wogl@mail.ru"
+    },
+    {
+      "id": 2,
+      "name": "Valery",
+      "surname": "Burlakov",
+      "phone": "12345678901",
+      "E-mail": "ValeryB@mail.ru"
+    },
+    {
+      "id": 3,
+      "name": "Valery",
+      "surname": "Abramov",
+      "phone": "123",
+      "E-mail": "v@mail.ru"
+    },
+    {
+      "id": 4,
+      "name": "Christian",
+      "surname": "Dior",
+      "phone": "3216735",
+      "E-mail": "dior@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "Elvis",
+      "surname": "Presley",
+      "phone": "4569832",
+      "E-mail": "Elvis@gmail.com"
+    },
+    {
+      "id": 7,
+      "name": "Валентина",
+      "surname": "Овечкина",
+      "phone": "89436547689",
+      "E-mail": "овечкина@mail.ru"
+    }
+  ]
+}

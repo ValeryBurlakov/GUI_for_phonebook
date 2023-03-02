@@ -4,7 +4,6 @@ from tkinter import * # импорт всех методов
 from tkinter import messagebox # явное импортирование
 from tkinter import ttk, scrolledtext, Menu
 from datetime import datetime
-import print_phone_book as ppb
 
 # def finish():
 #     window.destroy()  # ручное закрытие окна и всего приложения
@@ -49,7 +48,7 @@ def main_():
     elif answer == '8':
         out_field_8 = Label(
         frame_2, 
-        text = f'Ты гандон ввёл 8'
+        text = f'Ты ввёл 8'
         )
         out_field_8.grid(row=0, column=0)
         # messagebox.showinfo('answer-pythonguides', f'Ты гандон ввёл 8')
@@ -89,7 +88,7 @@ def printt_phone_book():
     list_phone = list(map(lambda x: x.get('phone'), t))  # получаем номера телефонов
     list_surname = list(map(lambda x: x.get('surname'), t))  # получаем фамилии
     list_email = list(map(lambda x: x.get('E-mail'), t))  # получаем адреса почты
-    # print(t)
+
     lbox = Listbox(width=70, height=10)
     lbox.pack()
     for i in range(len(list_name)):
@@ -100,7 +99,7 @@ def printt_phone_book():
 
 
 
-global window
+
 window = Tk()
 window.title("Телефонная книга")
 window.geometry('600x400')
@@ -145,7 +144,7 @@ frame_3.pack(anchor="n")
 # добавили виджет label для поля ввода
 entry_field = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
-    text = "Введите ваше имя: "
+    text = "Введите команду(0 - меню):"
 )
 entry_field.grid(row=0, column=0) # grid метод позиционирования виджета в окне
 
