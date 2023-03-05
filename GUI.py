@@ -6,47 +6,6 @@ from tkinter import ttk, scrolledtext, Menu
 from datetime import datetime
 import os.path
 
-
-def menu():
-    global out_field_menu
-    out_field_menu = Label(
-    frame_2, 
-    text = '0 - вызов меню\n'
-        '1 - показать справочник\n'
-        '2 - добавить новый контакт\n'
-        '3 - удалить контакт\n'
-        '4 - поиск контакта(нужно ввести имя целиком)\n'
-        '5 - продвинутый поиск(по всем данным)\n'
-        '6 - выгрузка данных\n'
-        '7 - изменение данных\n'
-        '8 - Копирование справочника в файл\n'
-        '9 - выход из программы'
-    )
-    out_field_menu.grid(row=3, column=2) 
-
-def printt_phone_book():
-    with open('BD.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
-        data = json.load(f)  # загнали все, что получилось в переменную
-
-    t = data["phone_book"]  # ключ от главного словаря с данными контактов
-
-    list_name = list(map(lambda x: x.get('name'), t))
-    list_phone = list(map(lambda x: x.get('phone'), t))  # получаем номера телефонов
-    list_surname = list(map(lambda x: x.get('surname'), t))  # получаем фамилии
-    list_email = list(map(lambda x: x.get('E-mail'), t))  # получаем адреса почты
-    global lbox
-    
-    lbox = Listbox(frame_2, width=70, height=10)
-    lbox.pack(side=TOP)
-
-    for i in range(len(list_name)):
-        text = (f'ID {i + 1} {list_name[i]} {list_surname[i]} '
-        f'Номер: {list_phone[i]} '
-        f'Почта: {list_email[i]}')
-        lbox.insert(0, text)
-
-
-
 # =====================ОКНО ПРОГРАММЫ===================================================================
 window = Tk()
 window.title("Телефонная книга")
@@ -83,6 +42,8 @@ bg="green"
 frame_2.pack(side=TOP, anchor="nw")
 
 
+
+# ==========================Поля ввода=================================================================
 entry_name = Label(
     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=0,
@@ -163,9 +124,28 @@ enter_name = ttk.Button(
 enter_name.grid(row=3, column=4) # разместили кнопку в ячейке
 
 
+entry_id = Label(
+    frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
+    padx=0,
+    text = "Введите id:",
+    bg='lightgreen'
+)
+entry_id.grid(row=4, column=2) # grid метод позиционирования виджета в окне
+entry_id = Entry(
+    frame_3, # заготовка с отступами
+    bg="white"
+)
+entry_id.grid(row=4, column=3)
+enter_id = ttk.Button(
+    frame_3,
+    text= 'Ввод',
+    command = menu
+)
+enter_id.grid(row=4, column=4) # разместили кнопку в ячейке
+# ===================================END===============================================================
 
 
-# # КНОПКИ МЕНЮ
+# ==============================КНОПКИ МЕНЮ============================================================
 
 def click_2():
     try:
@@ -368,12 +348,52 @@ button_exit = ttk.Button(
     command = click_11
 )
 button_exit.grid(row=9, column=0)
+# ===================================END==============================================================
 
 
+window.mainloop() # функция запуска цикла событий=====================================================
 
-window.mainloop() # функция запуска цикла событий
+# ================================Функции=============================================================
+# меню
+def menu():
+    global out_field_menu
+    out_field_menu = Label(
+    frame_2, 
+    text = '0 - вызов меню\n'
+        '1 - показать справочник\n'
+        '2 - добавить новый контакт\n'
+        '3 - удалить контакт\n'
+        '4 - поиск контакта(нужно ввести имя целиком)\n'
+        '5 - продвинутый поиск(по всем данным)\n'
+        '6 - выгрузка данных\n'
+        '7 - изменение данных\n'
+        '8 - Копирование справочника в файл\n'
+        '9 - выход из программы'
+    )
+    out_field_menu.grid(row=3, column=2) 
+# вывод книги
+def printt_phone_book():
+    with open('BD.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
+        data = json.load(f)  # загнали все, что получилось в переменную
 
+    t = data["phone_book"]  # ключ от главного словаря с данными контактов
 
+    list_name = list(map(lambda x: x.get('name'), t))
+    list_phone = list(map(lambda x: x.get('phone'), t))  # получаем номера телефонов
+    list_surname = list(map(lambda x: x.get('surname'), t))  # получаем фамилии
+    list_email = list(map(lambda x: x.get('E-mail'), t))  # получаем адреса почты
+    global lbox
+    
+    lbox = Listbox(frame_2, width=70, height=10)
+    lbox.pack(side=TOP)
+
+    for i in range(len(list_name)):
+        text = (f'ID {i + 1} {list_name[i]} {list_surname[i]} '
+        f'Номер: {list_phone[i]} '
+        f'Почта: {list_email[i]}')
+        lbox.insert(0, text)
+
+# добавление контакта
 def new_contactt():
     def added_contact():
         data['phone_book'].append(new_data)
@@ -525,7 +545,7 @@ def new_contactt():
                 # lg.logging.info('Added contact succesful')
 
 
-
+# изменение контакта
 def change_details():
     name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
     sur_name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
