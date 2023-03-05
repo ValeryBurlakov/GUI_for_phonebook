@@ -6,6 +6,48 @@ from tkinter import ttk, scrolledtext, Menu
 from datetime import datetime
 import os.path
 
+# меню
+def menu():
+    global out_field_menu
+    out_field_menu = Label(
+    frame_2, 
+    text = '0 - вызов меню\n'
+        '1 - показать справочник\n'
+        '2 - добавить новый контакт\n'
+        '3 - удалить контакт\n'
+        '4 - поиск контакта(нужно ввести имя целиком)\n'
+        '5 - продвинутый поиск(по всем данным)\n'
+        '6 - выгрузка данных\n'
+        '7 - изменение данных\n'
+        '8 - Копирование справочника в файл\n'
+        '9 - выход из программы'
+    )
+    out_field_menu.grid(row=3, column=2) 
+
+# вывод контактов
+def printt_phone_book():
+    with open('BD.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
+        data = json.load(f)  # загнали все, что получилось в переменную
+
+    t = data["phone_book"]  # ключ от главного словаря с данными контактов
+
+    list_name = list(map(lambda x: x.get('name'), t))
+    list_phone = list(map(lambda x: x.get('phone'), t))  # получаем номера телефонов
+    list_surname = list(map(lambda x: x.get('surname'), t))  # получаем фамилии
+    list_email = list(map(lambda x: x.get('E-mail'), t))  # получаем адреса почты
+    global lbox
+    
+    lbox = Listbox(frame_2, width=70, height=10)
+    lbox.pack(side=TOP)
+
+    for i in range(len(list_name)):
+        text = (f'ID {i + 1} {list_name[i]} {list_surname[i]} '
+        f'Номер: {list_phone[i]} '
+        f'Почта: {list_email[i]}')
+        lbox.insert(0, text)
+
+
+
 # =====================ОКНО ПРОГРАММЫ===================================================================
 window = Tk()
 window.title("Телефонная книга")
@@ -331,11 +373,8 @@ button_copy = ttk.Button(
 button_copy.grid(row=8, column=0)
 
 def click_11():
-    try:
-        out_field_menu.destroy()
-        menu()
-    except:
-        menu()
+    window.destroy()  # ручное закрытие окна и всего приложения
+    messagebox.showinfo('answer-pythonguides', f'Ты закрыл это божественное приложение!!!')
 entry_field_11 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -354,46 +393,7 @@ button_exit.grid(row=9, column=0)
 window.mainloop() # функция запуска цикла событий=====================================================
 
 # ================================Функции=============================================================
-# меню
-def menu():
-    global out_field_menu
-    out_field_menu = Label(
-    frame_2, 
-    text = '0 - вызов меню\n'
-        '1 - показать справочник\n'
-        '2 - добавить новый контакт\n'
-        '3 - удалить контакт\n'
-        '4 - поиск контакта(нужно ввести имя целиком)\n'
-        '5 - продвинутый поиск(по всем данным)\n'
-        '6 - выгрузка данных\n'
-        '7 - изменение данных\n'
-        '8 - Копирование справочника в файл\n'
-        '9 - выход из программы'
-    )
-    out_field_menu.grid(row=3, column=2) 
-# вывод книги
-def printt_phone_book():
-    with open('BD.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
-        data = json.load(f)  # загнали все, что получилось в переменную
 
-    t = data["phone_book"]  # ключ от главного словаря с данными контактов
-
-    list_name = list(map(lambda x: x.get('name'), t))
-    list_phone = list(map(lambda x: x.get('phone'), t))  # получаем номера телефонов
-    list_surname = list(map(lambda x: x.get('surname'), t))  # получаем фамилии
-    list_email = list(map(lambda x: x.get('E-mail'), t))  # получаем адреса почты
-    global lbox
-    
-    lbox = Listbox(frame_2, width=70, height=10)
-    lbox.pack(side=TOP)
-
-    for i in range(len(list_name)):
-        text = (f'ID {i + 1} {list_name[i]} {list_surname[i]} '
-        f'Номер: {list_phone[i]} '
-        f'Почта: {list_email[i]}')
-        lbox.insert(0, text)
-
-# добавление контакта
 def new_contactt():
     def added_contact():
         data['phone_book'].append(new_data)
@@ -594,3 +594,4 @@ def change_details():
     with open('BD.json', 'w', encoding='utf8') as outfile:
         json.dump(data, outfile, ensure_ascii=False, indent=2)
         # lg.logging.info('Data recording')
+
