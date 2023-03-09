@@ -5,6 +5,7 @@ from tkinter import messagebox # явное импортирование
 from tkinter import ttk, scrolledtext, Menu
 from datetime import datetime
 import os.path
+import time
 
 # меню
 def menu():
@@ -86,104 +87,118 @@ frame_2.pack(side=TOP, anchor="nw")
 
 
 # ==========================Поля ввода=================================================================
-entry_name = Label(
+entry_name_label = Label(
     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=0,
     text = "Введите Имя:",
     bg='lightgreen'
 )
-entry_name.grid(row=0, column=2) # grid метод позиционирования виджета в окне
-entry_name = Entry(
+entry_name_label.grid(row=0, column=2) # grid метод позиционирования виджета в окне
+entry_name_entry = Entry(
     frame_3, # заготовка с отступами
     bg="white"
 )
-entry_name.grid(row=0, column=3)
+entry_name_entry.grid(row=0, column=3)
 enter_name = ttk.Button(
     frame_3,
     text= 'Ввод',
-    command = menu
+    command = menu,
+    state=DISABLED # кнопка неактивна
 )
 enter_name.grid(row=0, column=4) # разместили кнопку в ячейке
 
 
-entry_surname = Label(
+entry_surname_label = Label(
     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=0,
     text = "Введите Фамилию:",
     bg='lightgreen'
 )
-entry_surname.grid(row=1, column=2) # grid метод позиционирования виджета в окне
-entry_surname = Entry(
+entry_surname_label.grid(row=1, column=2) # grid метод позиционирования виджета в окне
+entry_surname_entry = Entry(
     frame_3, # заготовка с отступами
     bg="white"
 )
-entry_surname.grid(row=1, column=3)
-enter_name = ttk.Button(
+entry_surname_entry.grid(row=1, column=3)
+enter_surname = ttk.Button(
     frame_3,
     text= 'Ввод',
-    command = menu
+    command = menu,
+    state=DISABLED
 )
-enter_name.grid(row=1, column=4) # разместили кнопку в ячейке
+enter_surname.grid(row=1, column=4) # разместили кнопку в ячейке
 
 
-entry_phone = Label(
+entry_phone_label = Label(
     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=0,
     text = "Введите номер:",
     bg='lightgreen'
 )
-entry_phone.grid(row=2, column=2) # grid метод позиционирования виджета в окне
-entry_phone = Entry(
+entry_phone_label.grid(row=2, column=2) # grid метод позиционирования виджета в окне
+entry_phone_entry = Entry(
     frame_3, # заготовка с отступами
     bg="white"
 )
-entry_phone.grid(row=2, column=3)
-enter_name = ttk.Button(
+entry_phone_entry.grid(row=2, column=3)
+enter_phone = ttk.Button(
     frame_3,
     text= 'Ввод',
-    command = menu
+    command = menu,
+    state=DISABLED
 )
-enter_name.grid(row=2, column=4) # разместили кнопку в ячейке
+enter_phone.grid(row=2, column=4) # разместили кнопку в ячейке
 
 
-entry_email = Label(
+entry_email_label = Label(
     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=0,
     text = "Введите почту:",
     bg='lightgreen'
 )
-entry_email.grid(row=3, column=2) # grid метод позиционирования виджета в окне
-entry_email = Entry(
+entry_email_label.grid(row=3, column=2) # grid метод позиционирования виджета в окне
+entry_email_entry = Entry(
     frame_3, # заготовка с отступами
     bg="white"
 )
-entry_email.grid(row=3, column=3)
-enter_name = ttk.Button(
+entry_email_entry.grid(row=3, column=3)
+enter_email = ttk.Button(
     frame_3,
     text= 'Ввод',
-    command = menu
+    command = menu,
+    state=DISABLED
 )
-enter_name.grid(row=3, column=4) # разместили кнопку в ячейке
+enter_email.grid(row=3, column=4) # разместили кнопку в ячейке
 
 
-entry_id = Label(
-    frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
-    padx=0,
-    text = "Введите id:",
-    bg='lightgreen'
-)
-entry_id.grid(row=4, column=2) # grid метод позиционирования виджета в окне
-entry_id = Entry(
-    frame_3, # заготовка с отступами
-    bg="white"
-)
-entry_id.grid(row=4, column=3)
-enter_id = ttk.Button(
+# entry_id_label = Label(
+#     frame_3, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
+#     padx=0,
+#     text = "Введите id:",
+#     bg='lightgreen'
+# )
+# entry_id_label.grid(row=4, column=2) # grid метод позиционирования виджета в окне
+# # entry_id_entry = Entry(
+#     frame_3, # заготовка с отступами
+#     bg="white"
+# )
+# entry_id_entry.grid(row=4, column=3)
+
+# enter_id = ttk.Button(
+#     frame_3,
+#     text= 'Ввод',
+#     command = menu,
+#     state=["disabled"]
+# )
+# enter_id.grid(row=4, column=4) # разместили кнопку в ячейке
+
+add_contact = ttk.Button(
     frame_3,
-    text= 'Ввод',
-    command = menu
+    text= 'Добавить контакт',
+    state=["disabled"]
 )
-enter_id.grid(row=4, column=4) # разместили кнопку в ячейке
+add_contact.grid(row=5, column=3, )
+
 # ===================================END===============================================================
 
 
@@ -374,7 +389,7 @@ button_copy.grid(row=8, column=0)
 
 def click_11():
     window.destroy()  # ручное закрытие окна и всего приложения
-    messagebox.showinfo('answer-pythonguides', f'Ты закрыл это божественное приложение!!!')
+    messagebox.showinfo('ВЫХОД', f'Вы закрыли это божественное приложение !!!')
 entry_field_11 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -390,23 +405,55 @@ button_exit.grid(row=9, column=0)
 # ===================================END==============================================================
 
 
-window.mainloop() # функция запуска цикла событий=====================================================
+
+
 
 # ================================Функции=============================================================
 
+
+
+# =============================Ввод данных============================================================
+def name_input():
+    global iname
+    iname = entry_name_entry.get()
+    enter_name.config(text="Записал")
+def surname_input():
+    global isurname
+    isurname = entry_surname_entry.get()
+    enter_surname.config(text="Записал")
+def iphone_input():
+    global iphone
+    iphone = entry_phone_entry.get()
+    enter_phone.config(text="Записал")
+def iemail_input():
+    global iemail
+    iemail = entry_email_entry.get()
+    enter_email.config(text="Записал")
+    # time.sleep(3)
+    # enter_email.after(2000, enter_email.config(text="Ввод"))
+# def iid_input():
+#     global iid
+#     iid = entry_id_entry.get()
+# ===================================END===================================================================
+
+# ================================Новый контакт========================================================
 def new_contactt():
+    enter_name.config(state=tk.NORMAL, command=name_input)
+    enter_surname.config(state=tk.NORMAL, command=surname_input)
+    enter_phone.config(state=tk.NORMAL, command=iphone_input)
+    enter_email.config(state=tk.NORMAL, command=iemail_input)
+    # enter_id.config(state=tk.NORMAL, command=iid_input)
+
+
     def added_contact():
+        new_data = {'id': id, 'name': iname, "surname": isurname, 'phone': iphone, "E-mail": iemail}
         data['phone_book'].append(new_data)
-        print(f'\033[1mКонтакт {name} успешно добавлен!!!!\033[0m')
+        print(f'\033[1mКонтакт {iname} успешно добавлен!!!!\033[0m')
         with open('BD.json', 'w', encoding='utf-8') as outfile:
             json.dump(data, outfile, ensure_ascii=False, indent=2)
             # lg.logging.info('Added contact succesfull')
 
-    def answer():
-        if answer == 1:
-            new_contactt()
-        elif answer == 2:
-            change_details()
+    add_contact.config(state=tk.NORMAL, command=added_contact)
 
     global id
 
@@ -416,13 +463,10 @@ def new_contactt():
             data = json.load(openfile)
             t = data["phone_book"]
             if len(t) > 0:
-                name = input("\033[1mВведите имя:\033[0m ")
-                surname = input("\033[1mВведите Фамилию:\033[0m ")
-                phone = input("\033[1mВведите номер:\033[0m ")
-                email = input("\033[1mВведите почту:\033[0m ")
+
 
         
-                
+                global result_id
                 result_name = list(map(lambda x : x.get('name'), t))
                 result_surname = list(map(lambda x : x.get('surname'), t))
                 result_phone = list(map(lambda x : x.get('phone'), t))
@@ -433,13 +477,11 @@ def new_contactt():
                 count_id = 0
                 count_email = 0
                 id = max(set(result_id)) + 1
-                new_data = {'id': id, 'name': name, "surname": surname, 'phone': phone, "E-mail": email} #создали переменную, включающую в себя данные, которые мы хотим добавить в уже имеющийся файл
+            
 
-                # pop = list(result_name)
-                # prop = list(result_surname)
-                num = [name, surname]
 
                 if len(t) > 1:
+                    num = [iname, isurname]
                     for i in range(len(result_name)): # name uniqueness check, если имя уже есть, предложит изменить
                         for j in range(0, len(result_surname)):
                             numb = [result_name[i], result_surname[j]]                    
@@ -447,6 +489,7 @@ def new_contactt():
                                 count_fullname += 1
 
                 elif len(t) == 1:
+                    num = [iname, isurname]
                     for i in result_name[0]:
                         for j in result_surname[0]:
                             numb_ = [result_name[0], result_surname[0]]
@@ -454,7 +497,7 @@ def new_contactt():
                                 count_fullname += 1
 
                 for i in result_phone:
-                    if phone == i:
+                    if iphone == i:
                         count_phone += 1
         
                 for i in result_id:
@@ -467,37 +510,13 @@ def new_contactt():
 
                 if count_fullname > 0:
                     # lg.logging.info('The name is already there')
-                    print("такое имя уже есть, добавьте новый контакт(,\nлибо измените имеющийся в соответствующем меню")
 
-                    answer_user = int(input("\033[1m\033[32m1\033[0m - добавить, \033[32m2\033[0m - изменить, \033[32m3\033[0m - в меню\033[0m: "))
-                    if answer_user == 1:
-                        new_contactt()
-                    elif answer_user == 2:
-                        change_details()
-                    elif answer_user == 0:
-                        print("\033[1mвыходим в меню\033[0m")
-                    else: 
-                        print("\033[1mТакого пункта нет, верну вас в меню\033[0m")
+                    messagebox.showinfo('ОШИБКА ФИО', f'такое фио уже есть, добавьте новый контакт(,\nлибо измените имеющийся в соответствующем меню')
                 else:
                     if count_phone > 0:
                         # lg.logging.info('the phone number is already there')
-                        print("\033[1mТакой номер телефона уже записан, добавьте новый контакт,\nлибо измените имеющийся в соответствующем меню\033[0m")
-                        answer_user = int(input("\033[1m\033[32m1\033[0m - добавить, \033[32m2\033[0m - изменить, \033[32m3\033[0m - в меню\033[0m: "))
-                        if answer_user == 1:
-                            new_contactt()
-                        elif answer_user == 2:
-                            change_details()
-                        elif answer_user == 3:
-                            print("выходим в меню")
-                            # lg.logging.info('menu exit')
-                        else: 
-                            print("такого пункта нет, верну вас в меню")
-                            # lg.logging.info('menu exit')
-                    else:
-                        if count_id == 0: # проверка на уникальность id
-                            added_contact()
-                        else:
-                            added_contact("Выходим в меню")
+                        messagebox.showinfo('НОМЕР', f'Такой номер уже записан')
+                        
             if len(t) == 0:
                 name = input("Введите имя: ")
                 surname = input("Введите Фамилию: ")
@@ -564,6 +583,7 @@ def change_details():
             email = i["E-mail"]
             surname = i["surname"]
             print("\033[1mкакие данный хотите изменить?\033[0m(ФИО, номер, почту): ")
+            messagebox.showinfo('какие данный хотите изменить?(ФИО, номер, почту): ')
             answer = int(input("\033[1m1 - ФИО, 2 - номер, почту - 3, 0 - выход в меню:\033[0m "))
             if answer == 0:
                         print("\033[1mвыходим в меню\033[0m")
@@ -595,3 +615,7 @@ def change_details():
         json.dump(data, outfile, ensure_ascii=False, indent=2)
         # lg.logging.info('Data recording')
 
+
+
+
+window.mainloop() # функция запуска цикла событий=====================================================

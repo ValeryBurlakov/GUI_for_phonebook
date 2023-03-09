@@ -1,3 +1,36 @@
+import tkinter as tk
+
+global counter
+counter = "Ввод"
+def counter_label(label):
+  
+  def count():
+    if (counter == 'Ввод'):
+        
+        label.config(text='Записал')
+        # counter = "Записал"
+        label.after(3000, count) 
+        counter = "Записал"
+        return counter
+        
+    else:
+        if (counter == "Записал"):
+            label.config(text='Ввод')
+            label.after(3000, count)
+            counter = "Ввод"
+            return counter
+  count()
+ 
+ 
+root = tk.Tk()
+root.title("Counting Seconds")
+label = tk.Label(root, fg="dark green")
+label.pack()
+counter_label(label)
+button = tk.Button(root, text='Stop', width=25, command=root.destroy)
+button.pack()
+root.mainloop()
+
 # def finish():
 #     window.destroy()  # ручное закрытие окна и всего приложения
 #     print("Закрытие приложения")
