@@ -6,7 +6,16 @@ from tkinter import ttk, scrolledtext, Menu
 from datetime import datetime
 import os.path
 import time
+import logging
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename='phonebook.log',
+    filemode='w', # при каждом новом запуске перезапись логов
+    format='[%(asctime)s] [%(levelname)s] [%(module)s] [%(funcName)s: %(lineno)d] => %(message)s',
+    datefmt='%d.%m.%Y %H:%M:%S ',
+)
+logging.info('Программа запущена')
 # меню
 def menu():
     global out_field_menu
@@ -195,6 +204,7 @@ enter_email.grid(row=3, column=4) # разместили кнопку в яче�
 add_contact = ttk.Button(
     frame_3,
     text= 'Добавить контакт',
+    command = menu,
     state=["disabled"]
 )
 add_contact.grid(row=5, column=3, )
@@ -390,6 +400,7 @@ button_copy.grid(row=8, column=0)
 def click_11():
     window.destroy()  # ручное закрытие окна и всего приложения
     messagebox.showinfo('ВЫХОД', f'Вы закрыли это божественное приложение !!!')
+    logging.info('Закрытие приложения')
 entry_field_11 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -438,6 +449,7 @@ def iemail_input():
 
 # ================================Новый контакт========================================================
 def new_contactt():
+    logging.info('Зашли в новый контакт')
     enter_name.config(state=tk.NORMAL, command=name_input)
     enter_surname.config(state=tk.NORMAL, command=surname_input)
     enter_phone.config(state=tk.NORMAL, command=iphone_input)
@@ -446,12 +458,13 @@ def new_contactt():
 
 
     def added_contact():
+        logging.info('Пытаемся добавить контакт')
         new_data = {'id': id, 'name': iname, "surname": isurname, 'phone': iphone, "E-mail": iemail}
         data['phone_book'].append(new_data)
         print(f'\033[1mКонтакт {iname} успешно добавлен!!!!\033[0m')
         with open('BD.json', 'w', encoding='utf-8') as outfile:
             json.dump(data, outfile, ensure_ascii=False, indent=2)
-            # lg.logging.info('Added contact succesfull')
+            logging.info('Added contact succesfull')
 
     add_contact.config(state=tk.NORMAL, command=added_contact)
 
@@ -463,7 +476,7 @@ def new_contactt():
             data = json.load(openfile)
             t = data["phone_book"]
             if len(t) > 0:
-
+                logging.info('телефонная книга имеется')
 
         
                 global result_id
@@ -481,6 +494,7 @@ def new_contactt():
 
 
                 if len(t) > 1:
+                    logging.info('контактов больше 1')
                     num = [iname, isurname]
                     for i in range(len(result_name)): # name uniqueness check, если имя уже есть, предложит изменить
                         for j in range(0, len(result_surname)):
@@ -489,6 +503,7 @@ def new_contactt():
                                 count_fullname += 1
 
                 elif len(t) == 1:
+                    logging.info('есть 1 контакт')
                     num = [iname, isurname]
                     for i in result_name[0]:
                         for j in result_surname[0]:
@@ -509,38 +524,31 @@ def new_contactt():
                         count_email += 1
 
                 if count_fullname > 0:
-                    # lg.logging.info('The name is already there')
+                    logging.info('The name is already there')
 
                     messagebox.showinfo('ОШИБКА ФИО', f'такое фио уже есть, добавьте новый контакт(,\nлибо измените имеющийся в соответствующем меню')
                 else:
                     if count_phone > 0:
-                        # lg.logging.info('the phone number is already there')
+                        logging.info('the phone number is already there')
                         messagebox.showinfo('НОМЕР', f'Такой номер уже записан')
                         
             if len(t) == 0:
-                name = input("Введите имя: ")
-                surname = input("Введите Фамилию: ")
-                phone = input("Введите номер: ")
-                email = input("Введите почту:")
+                logging.info('нету контактов')
                 with open('BD.json', encoding='utf8') as openfile:
                     data = json.load(openfile)
-                # lg.logging.info('Open file')
-                new_data = {
-                    'id': id,
-                    'name': name,
-                    "surname": surname,
-                    'phone': phone,
-                    "E-mail": email}
+                    logging.info('Open file')
+
                 if len(data["phone_book"]) <= 1:
+                    logging.info('Идем в добавление контакта')
                     added_contact()
-                    # lg.logging.info('Added contact succesful')
+                    logging.info('Added contact succesful')
 
     else:         
         with open('BD.json', 'w', encoding='utf-8') as fh:
             BD = {"phone_book": []}
             fh.write(json.dumps(BD,
                                 ensure_ascii=False))  # преобразовываем словарь data в unicode-строку и записываем в файл
-            # lg.logging.info('Create phone book')
+            logging.info('Create phone book')
             print('\033[1mТелефонная книга создана!\033[0m')
 
         name = input("\033[1mВведите имя:\033[0m ")
@@ -550,18 +558,11 @@ def new_contactt():
 
         with open('BD.json', encoding='utf8') as openfile:
             data = json.load(openfile)
-            # lg.logging.info('Open file')
+            logging.info('Open file')
 
-            new_data = {
-                'id': id,
-                'name': name,
-                "surname": surname,
-                'phone': phone,
-                "E-mail": email}
-            
             if len(data["phone_book"]) <= 1:
                 added_contact()
-                # lg.logging.info('Added contact succesful')
+                logging.info('Added contact succesful')
 
 
 # изменение контакта
