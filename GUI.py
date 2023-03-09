@@ -266,9 +266,11 @@ def click_4():
     # import new_contact as new_
     try:
         out_field_menu.destroy()
-        new_contactt()
+        click_button_new()
+        # new_contactt()
     except:
-        new_contactt()
+        click_button_new()
+        # new_contactt()
 entry_field_4 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -428,18 +430,23 @@ def name_input():
     global iname
     iname = entry_name_entry.get()
     enter_name.config(text="Записал")
+    entry_name_entry.delete(0, END)
 def surname_input():
     global isurname
     isurname = entry_surname_entry.get()
     enter_surname.config(text="Записал")
+    entry_surname_entry.delete(0, END)
 def iphone_input():
     global iphone
     iphone = entry_phone_entry.get()
     enter_phone.config(text="Записал")
+    entry_phone_entry.delete(0, END)
 def iemail_input():
     global iemail
     iemail = entry_email_entry.get()
     enter_email.config(text="Записал")
+    entry_email_entry.delete(0, END)
+    # entry.delete(0, END) # обнуление поля ввода
     # time.sleep(3)
     # enter_email.after(2000, enter_email.config(text="Ввод"))
 # def iid_input():
@@ -448,25 +455,47 @@ def iemail_input():
 # ===================================END===================================================================
 
 # ================================Новый контакт========================================================
-def new_contactt():
-    logging.info('Зашли в новый контакт')
+
+def click_button_new():
+    logging.info('нажали кнопку добавить контакт')
     enter_name.config(state=tk.NORMAL, command=name_input)
     enter_surname.config(state=tk.NORMAL, command=surname_input)
     enter_phone.config(state=tk.NORMAL, command=iphone_input)
     enter_email.config(state=tk.NORMAL, command=iemail_input)
+    add_contact.config(state=tk.NORMAL, command=new_contactt)
+    # enter_name.config(text="Ввод")
+    # enter_surname.config(text="Ввод")
+    # enter_phone.config(text="Ввод")
+    # enter_email.config(text="Ввод")
+
+
+    # new_contactt()
+
+def new_contactt():
+    enter_name.config(text="Ввод")
+    enter_surname.config(text="Ввод")
+    enter_phone.config(text="Ввод")
+    enter_email.config(text="Ввод")
+    logging.info('Зашли в новый контакт')
+
     # enter_id.config(state=tk.NORMAL, command=iid_input)
 
 
     def added_contact():
         logging.info('Пытаемся добавить контакт')
-        new_data = {'id': id, 'name': iname, "surname": isurname, 'phone': iphone, "E-mail": iemail}
+        # new_data = {
+        #     'id': id,
+        #     'name': iname,
+        #     "surname": isurname,
+        #     'phone': iphone,
+        #     "E-mail": iemail}
         data['phone_book'].append(new_data)
         print(f'\033[1mКонтакт {iname} успешно добавлен!!!!\033[0m')
         with open('BD.json', 'w', encoding='utf-8') as outfile:
             json.dump(data, outfile, ensure_ascii=False, indent=2)
             logging.info('Added contact succesfull')
 
-    add_contact.config(state=tk.NORMAL, command=added_contact)
+    add_contact.config(command=added_contact)
 
     global id
 
@@ -495,6 +524,12 @@ def new_contactt():
 
                 if len(t) > 1:
                     logging.info('контактов больше 1')
+                    new_data = {
+                    'id': id,
+                    'name': iname,
+                    "surname": isurname,
+                    'phone': iphone,
+                    "E-mail": iemail}
                     num = [iname, isurname]
                     for i in range(len(result_name)): # name uniqueness check, если имя уже есть, предложит изменить
                         for j in range(0, len(result_surname)):
@@ -504,6 +539,12 @@ def new_contactt():
 
                 elif len(t) == 1:
                     logging.info('есть 1 контакт')
+                    new_data = {
+                    'id': id,
+                    'name': iname,
+                    "surname": isurname,
+                    'phone': iphone,
+                    "E-mail": iemail}
                     num = [iname, isurname]
                     for i in result_name[0]:
                         for j in result_surname[0]:
@@ -537,7 +578,13 @@ def new_contactt():
                 with open('BD.json', encoding='utf8') as openfile:
                     data = json.load(openfile)
                     logging.info('Open file')
-
+                    # global new_data
+                new_data = {
+                    'id': 1,
+                    'name': iname,
+                    "surname": isurname,
+                    'phone': iphone,
+                    "E-mail": iemail}
                 if len(data["phone_book"]) <= 1:
                     logging.info('Идем в добавление контакта')
                     added_contact()
