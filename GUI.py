@@ -310,9 +310,9 @@ button_del.grid(row=3, column=0)
 def click_6():
     try:
         out_field_menu.destroy()
-        menu()
+        click_button_search()
     except:
-        menu()
+        click_button_search()
 entry_field_6 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -483,6 +483,16 @@ def click_button_del():
     enter_email.config(state=tk.DISABLED, command=iemail_input)
     add_contact.config(state=tk.NORMAL, command=deletee_contact)
 
+def click_button_search():
+    logging.info('нажали кнопку поиск контакта')
+    add_contact.config(text="Поиск")
+    entry_name_label.config(text="Введите данные")
+    enter_name.config(state=tk.NORMAL, command=name_input)
+    enter_surname.config(state=tk.DISABLED, command=surname_input)
+    enter_phone.config(state=tk.DISABLED, command=iphone_input)
+    enter_email.config(state=tk.DISABLED, command=iemail_input)
+    add_contact.config(state=tk.NORMAL, command=substring_search)
+
 
 def new_contactt():
     enter_name.config(text="Ввод")
@@ -640,8 +650,8 @@ def new_contactt():
 
 # изменение контакта
 def change_details():
-    name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
-    sur_name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
+    # name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
+    # sur_name_search = input("\033[1mВведите имя контакта, который хотите изменить:\033[0m ")
     with open('BD.json', encoding='utf8') as openfile:
         data = json.load(openfile)
         # lg.logging.info('Open file')
@@ -721,5 +731,73 @@ def deletee_contact():
         add_contact.config(text="Добавить контакт")
     messagebox.showinfo('Удаление Контакта', f'Контакт успешно удален')
 
+# Продвинутый поиск
+def substring_search():
+        logging.info('substring search contact')
+        with open('BD.json', encoding='utf8') as openfile:
+            data = json.load(openfile)
+            t = data["phone_book"]
+
+        # name_search = input("\033[1mВведите данные контакта:\033[0m ")
+        rname = str.title(iname)
+        result_name = list(map(lambda x : x.get('name'), t))
+        result_surname = list(map(lambda x : x.get('surname'), t))
+        result_phone = list(map(lambda x : x.get('phone'), t))
+        result_email = list(map(lambda x : x.get('E-mail'), t))
+        result_id = list(map(lambda x : x.get('id'), t))
+        # names = list(result_name)
+        # surnames = list(result_surname)
+        
+        names_list_index = []
+        count = 0
+
+        for i in result_name:
+
+            rn = result_name[count]
+            rsn = result_surname[count]
+            sn = result_surname[count]
+            nrp = result_phone[count]
+            nre = (result_email[count])
+            # name_search_l = name_search.lower()
+            nri = result_id[count]
+
+            if rname in rn or rname in sn:
+                names_list_index.append(count)
+                print(f'\033[1mВозможно вы искали:\033[0m {rn} {rsn}, \033[1mID\033[0m - \033[32m{nri}\033[0m')
+                count += 1
+                logging.info('contact found')
+                entry_name_label.config(text="Введите имя")
+            elif rname in nrp or rname.lower() in nre.lower():
+                names_list_index.append(count)
+                print(f'\033[1mВозможно вы искали:\033[0m {rn} {rsn}, \033[1mmail\033[0m: {nre}, \033[1mID\033[0m - \033[32m{nri}\033[0m')
+                count += 1
+                logging.info('contact found')
+                entry_name_label.config(text="Введите имя")
+            else:
+                count += 1
+
+        if len(names_list_index) == 0:
+            logging.info('No such contact')
+            print("\033[1mТакого контакта нет!!!\033[0m")
+            entry_name_label.config(text="Введите имя")
+        elif len(names_list_index) > 0:
+            id_search = int(input("\033[1mВведите\033[0m \033[32mID\033[0m \033[1mконтакта для вывода подробной информации о нём,\033[0m \033[32m0\033[0m - \033[1mвыход в меню:\033[0m "))
+            found = 0
+            if id_search == 0:
+                print("\033[1mвыходим в меню\033[0m")
+                logging.info('menu exit')
+                found = 1
+            for i in t:
+                if i["id"] == id_search:
+                    print(f'\033[32mname: \033[0m{i["name"]} {i["surname"]} \n' +
+                    f'\033[32mphone: \033[0m {i["phone"]} \n' +
+                    f'\033[32mE-mail: \033[0m {i["E-mail"]}')
+                    logging.info('full output')
+                    found += 1
+                    return found
+            if found == 0:
+                print(f"\033[1mКонтакт с id\033[0m - \033[32m{id_search}\033[0m \033[1mотсутствует в телефонной книге!\033[0m]")
+                logging.info('contact not found')
+                entry_name_label.config(text="Введите имя")
 
 window.mainloop() # функция запуска цикла событий=====================================================
