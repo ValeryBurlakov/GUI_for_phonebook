@@ -288,9 +288,12 @@ def click_5():
     import delete_contact as del_
     try:
         out_field_menu.destroy()
-        del_.deletee_contact()
+        click_button_del()
+        # button_add.config(text="Удалить контакт")
+        # del_.deletee_contact()
     except:
-        del_.deletee_contact()
+        click_button_del()
+        # del_.deletee_contact()
 entry_field_5 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -471,6 +474,16 @@ def click_button_new():
 
     # new_contactt()
 
+def click_button_del():
+    logging.info('нажали кнопку удалить контакт')
+    add_contact.config(text="Удалить контакт")
+    enter_name.config(state=tk.NORMAL, command=name_input)
+    enter_surname.config(state=tk.NORMAL, command=surname_input)
+    enter_phone.config(state=tk.DISABLED, command=iphone_input)
+    enter_email.config(state=tk.DISABLED, command=iemail_input)
+    add_contact.config(state=tk.NORMAL, command=deletee_contact)
+
+
 def new_contactt():
     enter_name.config(text="Ввод")
     enter_surname.config(text="Ввод")
@@ -491,11 +504,12 @@ def new_contactt():
         #     "E-mail": iemail}
         data['phone_book'].append(new_data)
         print(f'\033[1mКонтакт {iname} успешно добавлен!!!!\033[0m')
+        messagebox.showinfo('Добавление контакта', f'Контакт успешно добавлен')
         with open('BD.json', 'w', encoding='utf-8') as outfile:
             json.dump(data, outfile, ensure_ascii=False, indent=2)
             logging.info('Added contact succesfull')
 
-    add_contact.config(command=added_contact)
+    # add_contact.config(command=added_contact)
 
     global id
 
@@ -572,7 +586,12 @@ def new_contactt():
                     if count_phone > 0:
                         logging.info('the phone number is already there')
                         messagebox.showinfo('НОМЕР', f'Такой номер уже записан')
-                        
+                    else:
+                        if count_id == 0: # проверка на уникальность id
+                            added_contact()
+                        else:
+                            added_contact()
+
             if len(t) == 0:
                 logging.info('нету контактов')
                 with open('BD.json', encoding='utf8') as openfile:
@@ -589,6 +608,7 @@ def new_contactt():
                     logging.info('Идем в добавление контакта')
                     added_contact()
                     logging.info('Added contact succesful')
+                    messagebox.showinfo('Контакт успешно добавлен')
 
     else:         
         with open('BD.json', 'w', encoding='utf-8') as fh:
@@ -606,10 +626,16 @@ def new_contactt():
         with open('BD.json', encoding='utf8') as openfile:
             data = json.load(openfile)
             logging.info('Open file')
-
+            new_data = {
+                'id': id,
+                'name': name,
+                "surname": surname,
+                'phone': phone,
+                "E-mail": email}
             if len(data["phone_book"]) <= 1:
                 added_contact()
                 logging.info('Added contact succesful')
+                messagebox.showinfo('Контакт успешно добавлен')
 
 
 # изменение контакта
@@ -663,7 +689,37 @@ def change_details():
         json.dump(data, outfile, ensure_ascii=False, indent=2)
         # lg.logging.info('Data recording')
 
+# Удаление контакта
 
+def deletee_contact():
+
+    with open('BD.json', encoding='utf8') as openfile:  # Открываем файл
+        # Получае все данные из файла (вообще все, да)
+        data = json.load(openfile)
+        logging.info('Open file')
+
+    index = 0
+    found_index = 0
+    # items = data.values()
+    for i in data["phone_book"]:
+        if i["name"] == iname and i["surname"] == isurname:
+            print(f'{i["name"]} {i["surname"]}')
+            data["phone_book"].pop(index)
+            found_index += 1
+        else:
+            index += 1
+    if found_index == 0:
+        messagebox.showinfo('Удаление контакта', 'Контакт не найден')
+        logging.info('Контакт не найден!')
+        add_contact.config(text="Добавить контакт")
+    with open('BD.json', 'w', encoding='utf8') as outfile:  # Открываем файл для записи
+        # Добавляем данные (все, что было ДО добавления данных + добавленные
+        # данные)
+        json.dump(data, outfile, ensure_ascii=False, indent=2)
+        logging.info('Удалили контакт')
+        logging.info('записали данные')
+        add_contact.config(text="Добавить контакт")
+    messagebox.showinfo('Удаление Контакта', f'Контакт успешно удален')
 
 
 window.mainloop() # функция запуска цикла событий=====================================================

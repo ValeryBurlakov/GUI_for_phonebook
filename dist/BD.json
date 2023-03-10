@@ -41,6 +41,13 @@
       "surname": "Овечкина",
       "phone": "89436547689",
       "E-mail": "овечкина@mail.ru"
+    },
+    {
+      "id": 8,
+      "name": "Вадим",
+      "surname": "Такменев",
+      "phone": "89765678756",
+      "E-mail": "takmenev@gmail.com"
     }
   ]
 }
