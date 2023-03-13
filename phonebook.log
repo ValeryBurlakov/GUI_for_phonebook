@@ -1,16 +1,1 @@
-[11.03.2023 02:00:16 ] [INFO] [GUI] [<module>: 18] => Программа запущена
-[11.03.2023 02:00:18 ] [INFO] [GUI] [click_button_search: 487] => нажали кнопку поиск контакта
-[11.03.2023 02:00:20 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:00:20 ] [INFO] [GUI] [substring_search: 774] => contact found
-[11.03.2023 02:00:47 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:00:47 ] [INFO] [GUI] [substring_search: 780] => No such contact
-[11.03.2023 02:00:51 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:00:51 ] [INFO] [GUI] [substring_search: 780] => No such contact
-[11.03.2023 02:00:55 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:00:55 ] [INFO] [GUI] [substring_search: 774] => contact found
-[11.03.2023 02:01:00 ] [INFO] [GUI] [click_button_search: 487] => нажали кнопку поиск контакта
-[11.03.2023 02:01:05 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:01:05 ] [INFO] [GUI] [substring_search: 774] => contact found
-[11.03.2023 02:01:08 ] [INFO] [GUI] [substring_search: 736] => substring search contact
-[11.03.2023 02:01:08 ] [INFO] [GUI] [substring_search: 774] => contact found
-[11.03.2023 02:01:12 ] [INFO] [GUI] [click_11: 408] => Закрытие приложения
+[14.03.2023 02:20:38 ] [INFO] [GUI] [<module>: 16] => Приложение запущено

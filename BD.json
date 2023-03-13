@@ -2,59 +2,52 @@
   "phone_book": [
     {
       "id": 1,
-      "name": "dsa",
-      "surname": "asddsa",
-      "phone": "asddas",
-      "E-mail": "sadsa"
-    },
-    {
-      "id": 2,
-      "name": "fdsgg",
-      "surname": "gfdv",
-      "phone": "cxvcxv",
-      "E-mail": "xcvcxvc"
+      "name": "Алефтина",
+      "surname": "Иванова",
+      "phone": "89766457689",
+      "E-mail": "Ивановааля@gmail.com"
     },
     {
       "id": 3,
-      "name": "asd",
-      "surname": "dasdsaf",
-      "phone": "s",
-      "E-mail": "sdffsd"
+      "name": "Валерий",
+      "surname": "Бурлаков",
+      "phone": "89117827899",
+      "E-mail": "wogl@mail.ru"
     },
     {
       "id": 4,
-      "name": "jgjhgj",
-      "surname": "ghjgjgh",
-      "phone": "jghj",
-      "E-mail": "hjhgjg"
-    },
-    {
-      "id": 5,
-      "name": "афы",
-      "surname": "аыф",
-      "phone": "аыф",
-      "E-mail": "афы"
-    },
-    {
-      "id": 6,
-      "name": "SDG",
-      "surname": "GSD",
-      "phone": "SDGGSD",
-      "E-mail": "GDFGFGDF"
+      "name": "Артем",
+      "surname": "Валеев",
+      "phone": "89523567367",
+      "E-mail": "valeev@mail.ru"
     },
     {
       "id": 7,
-      "name": "sdfsfd",
-      "surname": "gsd",
-      "phone": "dgfg",
-      "E-mail": "hfdf"
+      "name": "Лола",
+      "surname": "Илова",
+      "phone": "89467636412",
+      "E-mail": "ilonamadonna@yandex.ru"
     },
     {
       "id": 8,
-      "name": "1",
-      "surname": "2",
-      "phone": "3",
-      "E-mail": "4"
+      "name": "Ангела",
+      "surname": "Меркель",
+      "phone": "89346567623",
+      "E-mail": "FRGforever@de.com"
+    },
+    {
+      "id": 9,
+      "name": "Ангелина",
+      "surname": "Савонина",
+      "phone": "89653457689",
+      "E-mail": "савонина@mail.ru"
+    },
+    {
+      "id": 2,
+      "name": "Василий",
+      "surname": "Иванченко",
+      "phone": "89348765789",
+      "E-mail": "ichenko@mail.ru"
     }
   ]
 }
