@@ -17,6 +17,11 @@ logging.info('Приложение запущено')
 
 # вывод контактов
 def printt_phone_book():
+    enter_name.config(state=tk.DISABLED)
+    enter_surname.config(state=tk.DISABLED)
+    enter_phone.config(state=tk.DISABLED,)
+    enter_email.config(state=tk.DISABLED)
+    add_contact.config(state=tk.DISABLED)
     with open('BD.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
         data = json.load(f)  # загнали все, что получилось в переменную
 
@@ -49,6 +54,8 @@ def printt_phone_book():
         f'Номер: {list_phone[i]} '
         f'Почта: {list_email[i]}')
         lbox.insert(0, text)
+
+    add_contact.config(text="операция")
 
 # =====================ОКНО ПРОГРАММЫ===================================================================
 window = Tk()
@@ -545,6 +552,7 @@ def new_contactt():
                     logging.info('Идем в добавление контакта')
                     added_contact()
                     logging.info('Added contact succesful')
+                    add_contact.config(text="операция")
                     messagebox.showinfo('Контакт успешно добавлен')
 
     else:         
@@ -746,6 +754,7 @@ def copy():
                     # Получаем все данные из файла (вообще все, да)
                     json.dump(text, openfile, ensure_ascii=False, indent=2)
                     messagebox.showinfo('Копирование книги', f'Справочник сохранен в папку {iname}')
+                    add_contact.config(text="операция")
                     logging.info('Copying succesfful')
 
 window.mainloop() # функция запуска цикла событий=====================================================
