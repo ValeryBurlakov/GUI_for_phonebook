@@ -310,17 +310,17 @@ def click_10():
     try:
         lbox2.destroy()
         lbox.destroy()
-        printt_phone_book()
+        click_button_copy()
     except:
         try:
             try:
                 lbox2.destroy()
-                printt_phone_book()
+                click_button_copy()
             except:
                 lbox.destroy()
-                printt_phone_book()
+                click_button_copy()
         except:
-            printt_phone_book()
+            click_button_copy()
 entry_field_10 = Label(
     frame, # заготовка виджета в которой уже настроены отступы по вертикали и горизонтали
     padx=5,
@@ -417,6 +417,16 @@ def click_button_search():
     enter_phone.config(state=tk.DISABLED, command=iphone_input)
     enter_email.config(state=tk.DISABLED, command=iemail_input)
     add_contact.config(state=tk.NORMAL, command=substring_search)
+
+def click_button_copy():
+    logging.info('нажали кнопку поиск контакта')
+    add_contact.config(text="копировать")
+    entry_name_label.config(text="имя новой папки")
+    enter_name.config(state=tk.NORMAL, command=name_input)
+    enter_surname.config(state=tk.DISABLED, command=surname_input)
+    enter_phone.config(state=tk.DISABLED, command=iphone_input)
+    enter_email.config(state=tk.DISABLED, command=iemail_input)
+    add_contact.config(state=tk.NORMAL, command=copy)
 
 
 def new_contactt():
@@ -719,5 +729,23 @@ def substring_search():
                 messagebox.showinfo('Поиск контакта', f'<<{iname}>> Отсутствует в телефонной книге')
                 logging.info('contact not found')
                 entry_name_label.config(text="Введите имя")
+
+
+def copy():
+    logging.info('Copying')
+    with open('BD.json', 'r') as f:  # открыли файл с данными
+        text = json.load(f)  # загнали все, что получилось в переменную
+        # print(text) #вывели результат на экран
+        logging.info('Read DATABASE')
+        n = iname + '.json'
+        n = str(n)
+        print(n)
+        if os.path.exists(n):
+            messagebox.showinfo('Копирование книги', f'Файл {iname} уже существует')
+        with open(n, 'w', encoding='utf-8') as openfile:  # Открываем файл
+                    # Получаем все данные из файла (вообще все, да)
+                    json.dump(text, openfile, ensure_ascii=False, indent=2)
+                    messagebox.showinfo('Копирование книги', f'Справочник сохранен в папку {iname}')
+                    logging.info('Copying succesfful')
 
 window.mainloop() # функция запуска цикла событий=====================================================
